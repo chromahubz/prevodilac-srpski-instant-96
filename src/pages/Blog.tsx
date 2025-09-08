@@ -136,7 +136,7 @@ const Blog = () => {
           <div className="flex items-center gap-3">
             <Link to="/" className="flex items-center gap-3">
               <img src={prevodilacLogo} alt="Prevodilac Srpski" className="h-8 w-auto" />
-              <h1 className="text-2xl font-bold text-foreground">PrevodilacSrpski</h1>
+              <h1 className="text-2xl font-bold text-foreground">Prevodilac Srpski</h1>
             </Link>
           </div>
           <div className="flex items-center gap-4">

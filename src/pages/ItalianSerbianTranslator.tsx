@@ -43,7 +43,12 @@ const ItalianSerbianTranslator = () => {
               <span className="text-base">🇮🇹</span>
               <span className="font-medium text-card-foreground">Italijanski</span>
             </div>
-            <Button variant="ghost" size="sm" className="p-2 hover:bg-secondary">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => window.location.href = "/prevodilac-srpski-italijanski"}
+              className="p-2 hover:bg-secondary"
+            >
               <ArrowLeftRight className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-2 h-12 px-4 rounded-lg border border-card-border bg-card">
