@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ArrowLeftRight, Globe, Headphones } from "lucide-react";
+import { ArrowLeftRight, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/ui/language-selector";
 import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
+import { HeaderLogo } from "@/components/ui/header-logo";
 import { Link } from "react-router-dom";
 
 const JapaneseSerbianTranslator = () => {
@@ -42,12 +43,7 @@ const JapaneseSerbianTranslator = () => {
       {/* Header */}
       <header className="border-b border-card-border bg-card">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-3">
-              <Globe className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">PrevodilacSrpski</h1>
-            </Link>
-          </div>
+          <HeaderLogo />
           
           <div className="flex items-center gap-4">
             {isRegistered && (
