@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Globe, Clock, Shield, Zap } from "lucide-react";
+import { Clock, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { HeaderLogo } from "@/components/ui/header-logo";
 import Footer from "@/components/Footer";
 
 const OnlinePrevodilac = () => {
@@ -8,12 +9,7 @@ const OnlinePrevodilac = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b border-card-border bg-card">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-3">
-              <Globe className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">PrevodilacSrpski</h1>
-            </Link>
-          </div>
+          <HeaderLogo />
           <div className="flex items-center gap-4">
             <Button variant="outline" size="sm" className="font-medium">Prijavi se</Button>
             <Button size="sm" className="bg-primary hover:bg-primary-hover font-medium">Registruj se</Button>
