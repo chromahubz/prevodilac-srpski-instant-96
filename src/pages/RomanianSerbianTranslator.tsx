@@ -5,6 +5,7 @@ import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
 import { HeaderLogo } from "@/components/ui/header-logo";
 import { Link } from "react-router-dom";
+import Footer from "@/components/Footer";
 
 const RomanianSerbianTranslator = () => {
   const [sourceText, setSourceText] = useState("");
@@ -98,25 +99,46 @@ const RomanianSerbianTranslator = () => {
         </div>
 
         <div className="max-w-4xl mx-auto mb-8">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Rumunski prevodilac - Translator român</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Zašto koristiti naš prevodilac sa rumunskog na srpski?
+          </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-semibold mb-2">Tačan prevod rumunskog</h3>
+              <h3 className="text-lg font-semibold mb-2">Brz i precizan prevod</h3>
               <p className="text-muted-foreground">
-                Rumunski jezik kao romanski jezik zahteva precizan prevod 
-                koji čuva romantičnost i elegantan izraz.
+                Naš napredni algoritam obezbeđuje brze i tačne prevode sa rumunskog na srpski jezik,
+                čuvajući kontekst i značenje originalnog teksta. Sistem prepoznaje idiome, kolokvijalizam
+                i kulturne specifičnosti za prirodan prevod.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-2">Za susedske zemlje</h3>
+              <h3 className="text-lg font-semibold mb-2">Romanski jezik Balkana</h3>
               <p className="text-muted-foreground">
-                Savršen alat za komunikaciju sa rumunskim susedima ili 
-                za potrebe turizma i poslovnih kontakata.
+                Kombinuje latinske korene sa balkanskim jezičkim uticajima i specifičnostima. Naš sistem je obučen na velikim korpusima rumunskog
+                teksta, što omogućava prepoznavanje složenih gramatičkih struktura i kontekstualnih nijansi.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Prirodan audio izgovor</h3>
+              <p className="text-muted-foreground">
+                Slušajte prevod izgovoren prirodnim srpskim glasom visokeg kvaliteta. Korisno je za učenje
+                srpskog jezika, proveru izgovora ili pomoć osobama sa poteškoćama u čitanju. Audio se generiše
+                u realnom vremenu sa naprednom TTS tehnologijom.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Optimizovano za sve potrebe</h3>
+              <p className="text-muted-foreground">
+                Savršeno funkcioniše na svim uređajima - telefonu, tabletu ili računaru. Interfejs je
+                prilagođen brzom radu sa intuitivnim kontrolama. Idealno za studente, poslovne korisnike,
+                turiste ili sve koji trebaju pouzdan prevod.
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

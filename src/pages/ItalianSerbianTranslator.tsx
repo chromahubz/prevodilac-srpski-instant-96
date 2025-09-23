@@ -3,6 +3,7 @@ import { ArrowLeftRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
+import Footer from "@/components/Footer";
 
 const ItalianSerbianTranslator = () => {
   const [sourceText, setSourceText] = useState("");
@@ -88,25 +89,46 @@ const ItalianSerbianTranslator = () => {
         </div>
 
         <div className="max-w-4xl mx-auto mb-8">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Italijanski prevodilac - Traduttore italiano</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Zašto koristiti naš prevodilac sa italijanskog na srpski?
+          </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-semibold mb-2">Melodičnost italijanskog jezika</h3>
+              <h3 className="text-lg font-semibold mb-2">Brz i precizan prevod</h3>
               <p className="text-muted-foreground">
-                Italijanski jezik je poznat po svojoj melodičnosti i lepoti. Naš prevodilac čuva tu originalnu 
-                eleganciju pri prevodu na srpski jezik.
+                Naš napredni algoritam obezbeđuje brze i tačne prevode sa italijanskog na srpski jezik,
+                čuvajući kontekst i značenje originalnog teksta. Sistem prepoznaje idiome, kolokvijalizam
+                i kulturne specifičnosti za prirodan prevod.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-2">Za ljubitelje Italije</h3>
+              <h3 className="text-lg font-semibold mb-2">Melodičnost italijanskog</h3>
               <p className="text-muted-foreground">
-                Savršen alat za one koji planiraju putovanje u Italiju, čitaju italijansku literaturu 
-                ili uče ovaj prekrasni jezik.
+                Čuva emotivnost i ekspresivnost italijanskog jezika kroz precizne prevode. Naš sistem je obučen na velikim korpusima italijanskog
+                teksta, što omogućava prepoznavanje složenih gramatičkih struktura i kontekstualnih nijansi.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Prirodan audio izgovor</h3>
+              <p className="text-muted-foreground">
+                Slušajte prevod izgovoren prirodnim srpskim glasom visokeg kvaliteta. Korisno je za učenje
+                srpskog jezika, proveru izgovora ili pomoć osobama sa poteškoćama u čitanju. Audio se generiše
+                u realnom vremenu sa naprednom TTS tehnologijom.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Optimizovano za sve potrebe</h3>
+              <p className="text-muted-foreground">
+                Savršeno funkcioniše na svim uređajima - telefonu, tabletu ili računaru. Interfejs je
+                prilagođen brzom radu sa intuitivnim kontrolama. Idealno za studente, poslovne korisnike,
+                turiste ili sve koji trebaju pouzdan prevod.
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

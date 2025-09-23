@@ -82,8 +82,47 @@ const ChineseSerbianTranslator = () => {
             </div>
           </div>
         </div>
+
+        <div className="max-w-4xl mx-auto mb-8">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Zašto koristiti naš prevodilac sa kineskog na srpski?
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Brz i precizan prevod</h3>
+              <p className="text-muted-foreground">
+                Naš napredni algoritam obezbeđuje brze i tačne prevode sa kineskog na srpski jezik,
+                čuvajući kontekst i značenje originalnog teksta. Sistem prepoznaje idiome, kolokvijalizam
+                i kulturne specifičnosti za prirodan prevod.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Logografski kineski sistem</h3>
+              <p className="text-muted-foreground">
+                Rukuje tradicionalnim i pojednostavljenim kineskim karakterima sa tonskim nijansama. Naš sistem je obučen na velikim korpusima kineskog
+                teksta, što omogućava prepoznavanje složenih gramatičkih struktura i kontekstualnih nijansi.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Prirodan audio izgovor</h3>
+              <p className="text-muted-foreground">
+                Slušajte prevod izgovoren prirodnim srpskim glasom visokeg kvaliteta. Korisno je za učenje
+                srpskog jezika, proveru izgovora ili pomoć osobama sa poteškoćama u čitanju. Audio se generiše
+                u realnom vremenu sa naprednom TTS tehnologijom.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Optimizovano za sve potrebe</h3>
+              <p className="text-muted-foreground">
+                Savršeno funkcioniše na svim uređajima - telefonu, tabletu ili računaru. Interfejs je
+                prilagođen brzom radu sa intuitivnim kontrolama. Idealno za studente, poslovne korisnike,
+                turiste ili sve koji trebaju pouzdan prevod.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      
+
       <Footer />
     </div>
   );

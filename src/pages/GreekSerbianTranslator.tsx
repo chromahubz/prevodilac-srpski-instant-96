@@ -5,6 +5,7 @@ import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
 import { HeaderLogo } from "@/components/ui/header-logo";
 import { Link } from "react-router-dom";
+import Footer from "@/components/Footer";
 
 const GreekSerbianTranslator = () => {
   const [sourceText, setSourceText] = useState("");
@@ -98,25 +99,46 @@ const GreekSerbianTranslator = () => {
         </div>
 
         <div className="max-w-4xl mx-auto mb-8">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Grčki prevodilac - Μεταφραστής ελληνικά</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Zašto koristiti naš prevodilac sa grčkog na srpski?
+          </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-semibold mb-2">Tačan prevod grčkog</h3>
+              <h3 className="text-lg font-semibold mb-2">Brz i precizan prevod</h3>
               <p className="text-muted-foreground">
-                Grčki jezik sa svojom bogatom istorijom i filozofskom tradicijom zahteva precizan prevod 
-                koji čuva originalnu dubinu i značenje.
+                Naš napredni algoritam obezbeđuje brze i tačne prevode sa grčkog na srpski jezik,
+                čuvajući kontekst i značenje originalnog teksta. Sistem prepoznaje idiome, kolokvijalizam
+                i kulturne specifičnosti za prirodan prevod.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-2">Za ljubitelje antike</h3>
+              <h3 className="text-lg font-semibold mb-2">Drevno i moderno grčko</h3>
               <p className="text-muted-foreground">
-                Savršen alat za čitanje grčkih tekstova, mitologije ili 
-                komunikaciju sa grčkim govornicima.
+                Razlikuje klasični i savremeni grčki jezik sa različitim gramatičkim pravilima. Naš sistem je obučen na velikim korpusima grčkog
+                teksta, što omogućava prepoznavanje složenih gramatičkih struktura i kontekstualnih nijansi.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Prirodan audio izgovor</h3>
+              <p className="text-muted-foreground">
+                Slušajte prevod izgovoren prirodnim srpskim glasom visokeg kvaliteta. Korisno je za učenje
+                srpskog jezika, proveru izgovora ili pomoć osobama sa poteškoćama u čitanju. Audio se generiše
+                u realnom vremenu sa naprednom TTS tehnologijom.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Optimizovano za sve potrebe</h3>
+              <p className="text-muted-foreground">
+                Savršeno funkcioniše na svim uređajima - telefonu, tabletu ili računaru. Interfejs je
+                prilagođen brzom radu sa intuitivnim kontrolama. Idealno za studente, poslovne korisnike,
+                turiste ili sve koji trebaju pouzdan prevod.
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

@@ -101,19 +101,39 @@ const GermanSerbianTranslator = () => {
         </div>
 
         <div className="max-w-4xl mx-auto mb-8">
-          <h2 className="text-2xl font-bold text-foreground mb-4">Nemački prevodilac - Deutsch Übersetzer</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Zašto koristiti naš prevodilac sa nemačkog na srpski?
+          </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="text-lg font-semibold mb-2">Precizan prevod nemačkog</h3>
+              <h3 className="text-lg font-semibold mb-2">Brz i precizan prevod</h3>
               <p className="text-muted-foreground">
-                Nemački jezik ima složenu gramatiku, ali naš AI prevodilac uspešno rukuje deklinacijama, 
-                konjugacijama i složenim rečeničnim strukturama.
+                Naš napredni algoritam obezbeđuje brze i tačne prevode sa nemačkog na srpski jezik,
+                čuvajući kontekst i značenje originalnog teksta. Sistem prepoznaje idiome, kolokvijalizam
+                i kulturne specifičnosti za prirodan prevod.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-2">Savršen za učenike nemačkog</h3>
+              <h3 className="text-lg font-semibold mb-2">Složena nemačka gramatika</h3>
               <p className="text-muted-foreground">
-                Idealan alat za studente koji uče nemački jezik, omogućava brz prevod i razumevanje teksta.
+                Pravilno obrađuje nemačke deklinacije, složene reči i specifičan red reči u rečenici. Naš sistem je obučen na velikim korpusima nemačkog
+                teksta, što omogućava prepoznavanje složenih gramatičkih struktura i kontekstualnih nijansi.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Prirodan audio izgovor</h3>
+              <p className="text-muted-foreground">
+                Slušajte prevod izgovoren prirodnim srpskim glasom visokeg kvaliteta. Korisno je za učenje
+                srpskog jezika, proveru izgovora ili pomoć osobama sa poteškoćama u čitanju. Audio se generiše
+                u realnom vremenu sa naprednom TTS tehnologijom.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Optimizovano za sve potrebe</h3>
+              <p className="text-muted-foreground">
+                Savršeno funkcioniše na svim uređajima - telefonu, tabletu ili računaru. Interfejs je
+                prilagođen brzom radu sa intuitivnim kontrolama. Idealno za studente, poslovne korisnike,
+                turiste ili sve koji trebaju pouzdan prevod.
               </p>
             </div>
           </div>
