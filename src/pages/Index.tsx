@@ -21,8 +21,8 @@ const Index = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   
   // Mock user state - replace with actual auth
-  const isRegistered = false;
-  const isPremium = false;
+  const isRegistered = true;
+  const isPremium = true;
   const usedTokens = 2;
   const totalTokens = 5;
 

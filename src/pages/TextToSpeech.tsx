@@ -14,8 +14,8 @@ const TextToSpeech = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioGenerated, setAudioGenerated] = useState(false);
   
-  const isRegistered = false;
-  const isPremium = false;
+  const isRegistered = true;
+  const isPremium = true;
   const usedTokens = 3;
   const totalTokens = 5;
 
