@@ -172,9 +172,6 @@ const Index = () => {
           </div>
           
           <div className="flex items-center gap-4">
-            {isRegistered && (
-              <TokenMeter used={usedTokens} total={totalTokens} className="hidden md:flex" />
-            )}
             <Button variant="outline" size="sm" className="font-medium">
               Prijavi se
             </Button>
@@ -265,12 +262,6 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Token Meter Mobile */}
-        {isRegistered && (
-          <div className="md:hidden mb-6">
-            <TokenMeter used={usedTokens} total={totalTokens} />
-          </div>
-        )}
 
         {/* Conversion Banners */}
         <div className="space-y-4 mb-8">

@@ -47,9 +47,6 @@ const TextToSpeech = () => {
           </div>
           
           <div className="flex items-center gap-4">
-            {isRegistered && (
-              <TokenMeter used={usedTokens} total={totalTokens} className="hidden md:flex" />
-            )}
             <Button variant="outline" size="sm" className="font-medium">Prijavi se</Button>
             <Button size="sm" className="bg-primary hover:bg-primary-hover font-medium">Registruj se</Button>
           </div>
@@ -155,12 +152,6 @@ const TextToSpeech = () => {
           )}
         </div>
 
-        {/* Mobile Token Meter */}
-        {isRegistered && (
-          <div className="md:hidden mb-6">
-            <TokenMeter used={usedTokens} total={totalTokens} />
-          </div>
-        )}
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
