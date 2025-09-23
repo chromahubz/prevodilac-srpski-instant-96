@@ -16,26 +16,8 @@ export interface Voice {
 }
 
 const voices: Voice[] = [
-  { id: "aria", name: "Aria", gender: "ženski", language: "en" },
-  { id: "roger", name: "Roger", gender: "muški", language: "en" },
-  { id: "sarah", name: "Sarah", gender: "ženski", language: "en" },
-  { id: "laura", name: "Laura", gender: "ženski", language: "en" },
-  { id: "charlie", name: "Charlie", gender: "muški", language: "en" },
-  { id: "george", name: "George", gender: "muški", language: "en" },
-  { id: "callum", name: "Callum", gender: "muški", language: "en" },
-  { id: "river", name: "River", gender: "ženski", language: "en" },
-  { id: "liam", name: "Liam", gender: "muški", language: "en" },
-  { id: "charlotte", name: "Charlotte", gender: "ženski", language: "en" },
-  { id: "alice", name: "Alice", gender: "ženski", language: "en" },
-  { id: "matilda", name: "Matilda", gender: "ženski", language: "en" },
-  { id: "will", name: "Will", gender: "muški", language: "en" },
-  { id: "jessica", name: "Jessica", gender: "ženski", language: "en" },
-  { id: "eric", name: "Eric", gender: "muški", language: "en" },
-  { id: "chris", name: "Chris", gender: "muški", language: "en" },
-  { id: "brian", name: "Brian", gender: "muški", language: "en" },
-  { id: "daniel", name: "Daniel", gender: "muški", language: "en" },
-  { id: "lily", name: "Lily", gender: "ženski", language: "en" },
-  { id: "bill", name: "Bill", gender: "muški", language: "en" },
+  { id: "female", name: "Ženski", gender: "ženski", language: "sr" },
+  { id: "male", name: "Muški (uskoro)", gender: "muški", language: "sr" },
 ];
 
 interface VoiceSelectorProps {
@@ -73,8 +55,10 @@ export function VoiceSelector({ value, onChange }: VoiceSelectorProps) {
         {voices.map((voice) => (
           <DropdownMenuItem
             key={voice.id}
-            onClick={() => onChange(voice.id)}
-            className={`flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-secondary ${
+            onClick={() => voice.id === "female" ? onChange(voice.id) : null}
+            className={`flex items-center justify-between px-4 py-3 ${
+              voice.id === "male" ? 'cursor-not-allowed opacity-60' : 'cursor-pointer hover:bg-secondary'
+            } ${
               value === voice.id ? 'bg-secondary' : ''
             }`}
           >
@@ -85,14 +69,16 @@ export function VoiceSelector({ value, onChange }: VoiceSelectorProps) {
                 <span className="text-xs text-muted-foreground">{voice.gender}</span>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={(e) => handlePlayVoice(voice.id, e)}
-              className="h-8 w-8 p-0 hover:bg-secondary-hover"
-            >
-              <Play className="h-3 w-3" />
-            </Button>
+            {voice.id === "female" && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => handlePlayVoice(voice.id, e)}
+                className="h-8 w-8 p-0 hover:bg-secondary-hover"
+              >
+                <Play className="h-3 w-3" />
+              </Button>
+            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
