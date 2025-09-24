@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
 import { useTranslation } from "@/hooks/use-translation";
+import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
@@ -14,10 +15,7 @@ const SerbianJapaneseTranslator = () => {
   const { translateText, isTranslating } = useTranslation();
   const navigate = useNavigate();
 
-  const isRegistered = false;
-  const isPremium = false;
-  const usedTokens = 2;
-  const totalTokens = 5;
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
@@ -31,7 +29,7 @@ const SerbianJapaneseTranslator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
+      <SiteHeader />
 
       {/* SEO Content */}
       <div className="max-w-6xl mx-auto px-4 py-6">

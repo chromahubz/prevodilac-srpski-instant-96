@@ -4,17 +4,15 @@ import { Button } from "@/components/ui/button";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
 import { useTranslation } from "@/hooks/use-translation";
+import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
 
 const SerbianItalianTranslator = () => {
   const [sourceText, setSourceText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [isTranslating, setIsTranslating] = useState(false);
-  
-  const isRegistered = false;
-  const isPremium = false;
-  const usedTokens = 2;
-  const totalTokens = 5;
+
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
 
   const { translateText } = useTranslation();
 
@@ -39,7 +37,7 @@ const SerbianItalianTranslator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
+      <SiteHeader />
 
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="text-center mb-8">

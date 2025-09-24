@@ -2,11 +2,11 @@ import { useState } from "react";
 import { ArrowLeftRight, Users, Headphones, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/ui/language-selector";
-import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
-import { HeaderLogo } from "@/components/ui/header-logo";
+import { SiteHeader } from "@/components/ui/site-header";
 import { sendTranslationToWebhook, TranslationData } from "@/lib/webhook";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
@@ -19,12 +19,8 @@ const Index = () => {
   const [copied, setCopied] = useState(false);
   const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  
-  // Mock user state - replace with actual auth
-  const isRegistered = true;
-  const isPremium = true;
-  const usedTokens = 2;
-  const totalTokens = 5;
+
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
@@ -164,23 +160,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-card-border bg-card">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <HeaderLogo />
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" className="font-medium">
-              Prijavi se
-            </Button>
-            <Button size="sm" className="font-medium bg-primary hover:bg-primary-hover">
-              Registruj se
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Main Translator */}
       <main className="max-w-6xl mx-auto px-4 py-8">

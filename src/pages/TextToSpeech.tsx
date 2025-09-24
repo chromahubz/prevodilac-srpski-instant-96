@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Volume2, Globe, Download, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { HeaderLogo } from "@/components/ui/header-logo";
+import { SiteHeader } from "@/components/ui/site-header";
 import { LanguageSelector } from "@/components/ui/language-selector";
 import { VoiceSelector } from "@/components/ui/voice-selector";
+import { useAuth } from "@/contexts/AuthContext";
+import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 
@@ -17,8 +19,7 @@ const TextToSpeech = () => {
   const [audioGenerated, setAudioGenerated] = useState(false);
   const [lastGeneratedText, setLastGeneratedText] = useState("");
 
-  const isRegistered = true;
-  const isPremium = true;
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
 
   const handleGenerateAudio = async () => {
     if (!text.trim()) return;
@@ -170,18 +171,7 @@ const TextToSpeech = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-card-border bg-card">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <HeaderLogo />
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="sm" className="font-medium">Prijavi se</Button>
-            <Button size="sm" className="bg-primary hover:bg-primary-hover font-medium">Registruj se</Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-8">
@@ -357,6 +347,8 @@ const TextToSpeech = () => {
           </div>
         )}
       </main>
+
+      <Footer />
     </div>
   );
 };

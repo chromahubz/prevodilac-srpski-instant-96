@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/ui/language-selector";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
+import { useTranslation } from "@/hooks/use-translation";
+import { useAuth } from "@/contexts/AuthContext";
+import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
 const DutchSerbianTranslator = () => {
@@ -11,25 +14,23 @@ const DutchSerbianTranslator = () => {
   const [translatedText, setTranslatedText] = useState("");
   const [isTranslating, setIsTranslating] = useState(false);
   
-  // Fixed language pair for this page
-  const sourceLang = "nl";
-  const targetLang = "sr";
-  
-  // Mock user state
-  const isRegistered = false;
-  const isPremium = false;
-  const usedTokens = 2;
-  const totalTokens = 5;
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
+
+  const { translateText } = useTranslation();
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
-    
     setIsTranslating(true);
-    // TODO: Replace with actual n8n webhook call
-    setTimeout(() => {
-      setTranslatedText("Ovo je primer prevoda sa holandskog na srpski koji će biti zamenjen stvarnim prevodom.");
+
+    try {
+      const result = await translateText(sourceText, "nl", "sr");
+      setTranslatedText(result || "Prevod trenutno nije dostupan, pokušajte ponovo.");
+    } catch (error) {
+      console.error("Translation error:", error);
+      setTranslatedText("Prevod trenutno nije dostupan, pokušajte ponovo.");
+    } finally {
       setIsTranslating(false);
-    }, 1000);
+    }
   };
 
   const handleSwapLanguages = () => {
@@ -39,7 +40,7 @@ const DutchSerbianTranslator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
+      <SiteHeader />
 
       {/* SEO Content */}
       <div className="max-w-6xl mx-auto px-4 py-6">
