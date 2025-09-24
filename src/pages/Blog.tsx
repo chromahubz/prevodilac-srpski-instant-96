@@ -121,11 +121,154 @@ const Blog = () => {
         title: "Kako naučiti mađarski jezik samostalno",
         excerpt: "Saveti za savladavanje jednog od najteži evropskih jezika uz praktične metode i strategije učenja.",
         date: "2. decembar 2024",
-        author: "Zoltán Nagy", 
+        author: "Zoltán Nagy",
         category: "Učenje jezika",
         slug: "/blog/kako-nauciti-madjarski-jezik-samostalno",
         readTime: "8 min čitanja",
         image: "🇭🇺"
+      },
+      {
+        id: 12,
+        title: "Prevođenje u poslovnom svetu: Kako profesionalni prevod utiče na uspeh",
+        excerpt: "Otkrijte kako kvalitetan poslovni prevod može da poveća prihode kompanije za čak 70% na međunarodnim tržištima.",
+        date: "20. decembar 2024",
+        author: "Milica Stojanović",
+        category: "Poslovni prevod",
+        slug: "/blog/prevodenje-u-poslovnom-svetu",
+        readTime: "12 min čitanja",
+        image: "💼"
+      },
+      {
+        id: 13,
+        title: "AI prevodne tehnologije 2024: Kako mašinsko učenje revolucionira prevod",
+        excerpt: "Saznajte o najnovijim AI tehnologijama u prevođenju i kako transformer arhitektura menja industriju prevoda.",
+        date: "18. decembar 2024",
+        author: "Dr. Marko Milić",
+        category: "AI Tehnologije",
+        slug: "/blog/ai-prevodne-tehnologije-2024",
+        readTime: "15 min čitanja",
+        image: "🤖"
+      },
+      {
+        id: 14,
+        title: "Online prevodni trendovi 2024: Digitalna transformacija jezika",
+        excerpt: "Analiza najnovijih trendova u online prevođenju i kako digitalizacija menja način komunikacije.",
+        date: "16. decembar 2024",
+        author: "Ana Jović",
+        category: "Digital Trends",
+        slug: "/blog/online-prevodni-trendovi-2024",
+        readTime: "10 min čitanja",
+        image: "🌐"
+      },
+      {
+        id: 15,
+        title: "Besplatni prevodi online: Vodič za izbor najboljeg besplatnog prevodioca",
+        excerpt: "Otkrijte najbolje besplatne online prevodioce sa analizom performansi, privatnosti i kvaliteta za srpski jezik.",
+        date: "22. decembar 2024",
+        author: "Marko Stefanović",
+        category: "Besplatni alati",
+        slug: "/blog/besplatni-prevodi-online",
+        readTime: "8 min čitanja",
+        image: "💰"
+      },
+      {
+        id: 16,
+        title: "Tekst u govor srpski: Kompletni vodič za najbolje TTS tehnologije",
+        excerpt: "Saznajte sve o text-to-speech tehnologijama za srpski jezik, kvalitetu zvuka i praktičnim primenama.",
+        date: "20. decembar 2024",
+        author: "Milica Radić",
+        category: "TTS tehnologija",
+        slug: "/blog/tekst-u-govor-srpski",
+        readTime: "9 min čitanja",
+        image: "🔊"
+      },
+      {
+        id: 17,
+        title: "Lokalizacija veb stranica za srpsko tržište: Kompletni vodič",
+        excerpt: "Sve što treba da znate o lokalizaciji web sadržaja za srpsko tržište - od kulturnih adaptacija do SEO optimizacije.",
+        date: "18. decembar 2024",
+        author: "Stefan Milosavljević",
+        category: "Web lokalizacija",
+        slug: "/blog/lokalizacija-veb-stranica",
+        readTime: "11 min čitanja",
+        image: "🌍"
+      },
+      {
+        id: 18,
+        title: "Mašinski vs ljudski prevod: Kompletan vodič za 2025. godinu",
+        excerpt: "Detaljno poređenje AI prevođenja i profesionalnih prevodioca sa analizom kada je koji pristup bolji.",
+        date: "24. decembar 2024",
+        author: "Dr. Petar Marković",
+        category: "AI vs Ljudski",
+        slug: "/blog/masinski-vs-ljudski-prevod",
+        readTime: "12 min čitanja",
+        image: "🤖"
+      },
+      {
+        id: 19,
+        title: "Profesionalni prevodilac srpski: Kako da pronađete idealnog eksperta",
+        excerpt: "Vodič za izbor profesionalnog prevodioca sa savetima o cenama, sertifikacijama i specijalizacijama.",
+        date: "23. decembar 2024",
+        author: "Milica Stojanović",
+        category: "Profesionalne usluge",
+        slug: "/blog/profesionalni-prevodilac",
+        readTime: "10 min čitanja",
+        image: "👨‍💼"
+      },
+      {
+        id: 20,
+        title: "Online prevodilac alati: Kompletan vodič za digitalne prevodioce 2025",
+        excerpt: "Sveobuhvatan pregled najboljih online prevodilac alata sa poređenjem funkcija i performansi.",
+        date: "21. decembar 2024",
+        author: "Nikola Petrović",
+        category: "Digitalni alati",
+        slug: "/blog/online-prevodilac-alati",
+        readTime: "14 min čitanja",
+        image: "🛠️"
+      },
+      {
+        id: 21,
+        title: "Srpski jezik učenje: Kompletni vodič za savladavanje srpskog jezika 2025",
+        excerpt: "Sveobuhvatan vodič za učenje srpskog jezika sa strategijama, resursima i praktičnim savetima za sve nivoe.",
+        date: "25. decembar 2024",
+        author: "Prof. Ana Milanović",
+        category: "Učenje jezika",
+        slug: "/blog/srpski-jezik-ucenje",
+        readTime: "15 min čitanja",
+        image: "📖"
+      },
+      {
+        id: 22,
+        title: "Prevodilački posao: Kako pokrenuti uspešnu karijeru u prevođenju 2025",
+        excerpt: "Kompletan vodič za karijeru u prevođenju sa informacijama o zaradama, specijalizacijama i budućim trendovima.",
+        date: "26. decembar 2024",
+        author: "Marko Jovanović",
+        category: "Karijerni vodič",
+        slug: "/blog/prevodilacki-posao",
+        readTime: "13 min čitanja",
+        image: "💼"
+      },
+      {
+        id: 23,
+        title: "Prevod dokumenata: Kompletan vodič za zvanične i poslovne dokumente 2025",
+        excerpt: "Detaljan vodič za ovlašćene i poslovne prevode dokumenata sa cenama, procedurama i pravnim zahtevima.",
+        date: "27. decembar 2024",
+        author: "Dr. Milica Radović",
+        category: "Zvanični dokumenti",
+        slug: "/blog/prevod-dokumenata",
+        readTime: "16 min čitanja",
+        image: "📄"
+      },
+      {
+        id: 24,
+        title: "Višejezična komunikacija: Vodič za savremeni poslovni svet 2025",
+        excerpt: "Strategije i tehnologije za efikasnu komunikaciju preko jezičkih barijera u globalnom poslovnom okruženju.",
+        date: "28. decembar 2024",
+        author: "Prof. Stefan Milosavljević",
+        category: "Međunarodna komunikacija",
+        slug: "/blog/visejeznicu-komunikacija",
+        readTime: "17 min čitanja",
+        image: "🌐"
       }
   ];
 

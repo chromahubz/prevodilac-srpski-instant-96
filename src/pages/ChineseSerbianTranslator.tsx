@@ -1,27 +1,31 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeftRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
+import { useTranslation } from "@/hooks/use-translation";
 import Footer from "@/components/Footer";
 
 const ChineseSerbianTranslator = () => {
   const [sourceText, setSourceText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
-  const [isTranslating, setIsTranslating] = useState(false);
-  
+  const { translateText, isTranslating } = useTranslation();
+  const navigate = useNavigate();
+
   const isRegistered = false;
   const isPremium = false;
   const usedTokens = 2;
   const totalTokens = 5;
 
+  const handleSwapLanguages = () => {
+    navigate('/prevodilac-srpski-kineski');
+  };
+
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
-    setIsTranslating(true);
-    setTimeout(() => {
-      setTranslatedText("Ovo je primer prevoda sa kineskog na srpski koji će biti zamenjen stvarnim prevodom.");
-      setIsTranslating(false);
-    }, 1000);
+    const result = await translateText(sourceText, "zh", "sr");
+    setTranslatedText(result || "Prevod trenutno nije dostupan, pokušajte ponovo.");
   };
 
   return (
@@ -44,7 +48,7 @@ const ChineseSerbianTranslator = () => {
               <span className="text-base">🇨🇳</span>
               <span className="font-medium text-card-foreground">Kineski</span>
             </div>
-            <Button variant="ghost" size="sm" className="p-2 hover:bg-secondary">
+            <Button variant="ghost" size="sm" className="p-2 hover:bg-secondary" onClick={handleSwapLanguages}>
               <ArrowLeftRight className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-2 h-12 px-4 rounded-lg border border-card-border bg-card">

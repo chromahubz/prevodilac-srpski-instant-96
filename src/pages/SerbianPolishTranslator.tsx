@@ -1,21 +1,19 @@
 import { useState } from "react";
-import { ArrowLeftRight, Globe, Headphones } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeftRight, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LanguageSelector } from "@/components/ui/language-selector";
-import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
+import { SiteHeader } from "@/components/ui/site-header";
+import { useTranslation } from "@/hooks/use-translation";
+import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
 const SerbianPolishTranslator = () => {
   const [sourceText, setSourceText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
-  const [isTranslating, setIsTranslating] = useState(false);
-  
-  // Fixed language pair for this page
-  const sourceLang = "sr";
-  const targetLang = "pl";
-  
-  // Mock user state
+  const { translateText, isTranslating } = useTranslation();
+  const navigate = useNavigate();
+
   const isRegistered = false;
   const isPremium = false;
   const usedTokens = 2;
@@ -23,45 +21,17 @@ const SerbianPolishTranslator = () => {
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
-    
-    setIsTranslating(true);
-    // TODO: Replace with actual n8n webhook call
-    setTimeout(() => {
-      setTranslatedText("To jest przykład tłumaczenia z serbskiego na polski.");
-      setIsTranslating(false);
-    }, 1000);
+    const result = await translateText(sourceText, "sr", "pl");
+    setTranslatedText(result || "Prevod trenutno nije dostupan, pokušajte ponovo.");
   };
 
   const handleSwapLanguages = () => {
-    // Redirect to Polish-Serbian translator
-    window.location.href = "/prevodilac-poljski-srpski";
+    navigate("/prevodilac-poljski-srpski");
   };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-card-border bg-card">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-3">
-              <Globe className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">PrevodilacSrpski</h1>
-            </Link>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            {isRegistered && (
-              <TokenMeter used={usedTokens} total={totalTokens} className="hidden md:flex" />
-            )}
-            <Button variant="outline" size="sm" className="font-medium">
-              Prijavi se
-            </Button>
-            <Button size="sm" className="bg-primary hover:bg-primary-hover font-medium">
-              Registruj se
-            </Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
 
       {/* SEO Content */}
       <div className="max-w-6xl mx-auto px-4 py-6">
@@ -214,6 +184,8 @@ const SerbianPolishTranslator = () => {
           </Link>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

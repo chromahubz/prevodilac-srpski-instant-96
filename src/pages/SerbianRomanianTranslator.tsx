@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { ArrowLeftRight, Globe, Headphones } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeftRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
-import { Link } from "react-router-dom";
+import { SiteHeader } from "@/components/ui/site-header";
+import { useTranslation } from "@/hooks/use-translation";
+import Footer from "@/components/Footer";
 
 const SerbianRomanianTranslator = () => {
   const [sourceText, setSourceText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
-  const [isTranslating, setIsTranslating] = useState(false);
-  
+  const { translateText, isTranslating } = useTranslation();
+  const navigate = useNavigate();
+
   const isRegistered = false;
   const isPremium = false;
   const usedTokens = 2;
@@ -17,34 +20,17 @@ const SerbianRomanianTranslator = () => {
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
-    setIsTranslating(true);
-    setTimeout(() => {
-      setTranslatedText("Acesta este un exemplu de traducere din sârbă în română care va fi înlocuit cu traducerea reală.");
-      setIsTranslating(false);
-    }, 1000);
+    const result = await translateText(sourceText, "sr", "ro");
+    setTranslatedText(result || "Prevod trenutno nije dostupan, pokušajte ponovo.");
   };
 
   const handleSwapLanguages = () => {
-    window.location.href = "/prevodilac-rumunski-srpski";
+    navigate("/prevodilac-rumunski-srpski");
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-card-border bg-card">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-3">
-              <Globe className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">PrevodilacSrpski</h1>
-            </Link>
-          </div>
-          <div className="flex items-center gap-4">
-            {isRegistered && <TokenMeter used={usedTokens} total={totalTokens} className="hidden md:flex" />}
-            <Button variant="outline" size="sm" className="font-medium">Prijavi se</Button>
-            <Button size="sm" className="bg-primary hover:bg-primary-hover font-medium">Registruj se</Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
 
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="text-center mb-8">
@@ -121,6 +107,8 @@ const SerbianRomanianTranslator = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

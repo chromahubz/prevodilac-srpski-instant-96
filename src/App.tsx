@@ -14,7 +14,10 @@ import SerbianFrenchTranslator from "./pages/SerbianFrenchTranslator";
 import ItalianSerbianTranslator from "./pages/ItalianSerbianTranslator";
 import SerbianItalianTranslator from "./pages/SerbianItalianTranslator";
 import SpanishSerbianTranslator from "./pages/SpanishSerbianTranslator";
+import SerbianSpanishTranslator from "./pages/SerbianSpanishTranslator";
 import RussianSerbianTranslator from "./pages/RussianSerbianTranslator";
+import SerbianRussianTranslator from "./pages/SerbianRussianTranslator";
+import SerbianChineseTranslator from "./pages/SerbianChineseTranslator";
 import GreekSerbianTranslator from "./pages/GreekSerbianTranslator";
 import SerbianGreekTranslator from "./pages/SerbianGreekTranslator";
 import HungarianSerbianTranslator from "./pages/HungarianSerbianTranslator";
@@ -53,6 +56,19 @@ import BlogRuskiNeprevodi from "./pages/BlogRuskiNeprevodi";
 import BlogJapanskiSamostalno from "./pages/BlogJapanskiSamostalno";
 import BlogSvedskiBrzo from "./pages/BlogSvedskiBrzo";
 import BlogMadjarskiSamostalno from "./pages/BlogMadjarskiSamostalno";
+import BlogPrevodjenjeUPoslovnom from "./pages/BlogPrevodjenjeUPoslovnom";
+import BlogAIPrevodneTechnologie from "./pages/BlogAI-PrevodneTechnologie";
+import BlogOnlinePrevodneTrend2024 from "./pages/BlogOnlinePrevodneTrend2024";
+import BlogBesplatniPrevodiOnline from "./pages/BlogBesplatniPrevodiOnline";
+import BlogTekstUGovorSrpski from "./pages/BlogTekstUGovorSrpski";
+import BlogLokalizacijaVebStranica from "./pages/BlogLokalizacijaVebStranica";
+import BlogMasinskiVsLjudskiPrevod from "./pages/BlogMasinskiVsLjudskiPrevod";
+import BlogProfesionalniPrevodilac from "./pages/BlogProfesionalniPrevodilac";
+import BlogOnlinePrevodiociAlati from "./pages/BlogOnlinePrevodiociAlati";
+import BlogSrpskiJezikUcenje from "./pages/BlogSrpskiJezikUcenje";
+import BlogPrevodilackiPosao from "./pages/BlogPrevodilackiPosao";
+import BlogPrevodDokumenata from "./pages/BlogPrevodDokumenata";
+import BlogVisejeznaComunikacija from "./pages/BlogVisejeznaComunikacija";
 import JapaneseSerbianTranslator from "./pages/JapaneseSerbianTranslator";
 import SerbianJapaneseTranslator from "./pages/SerbianJapaneseTranslator";
 import KoreanSerbianTranslator from "./pages/KoreanSerbianTranslator";
@@ -91,7 +107,9 @@ const App = () => (
           <Route path="/prevodilac-italijanski-srpski" element={<ItalianSerbianTranslator />} />
           <Route path="/prevodilac-srpski-italijanski" element={<SerbianItalianTranslator />} />
           <Route path="/prevodilac-spanski-srpski" element={<SpanishSerbianTranslator />} />
+          <Route path="/prevodilac-srpski-spanski" element={<SerbianSpanishTranslator />} />
           <Route path="/prevodilac-ruski-srpski" element={<RussianSerbianTranslator />} />
+          <Route path="/prevodilac-srpski-ruski" element={<SerbianRussianTranslator />} />
           <Route path="/prevodilac-grcki-srpski" element={<GreekSerbianTranslator />} />
           <Route path="/prevodilac-srpski-grcki" element={<SerbianGreekTranslator />} />
           <Route path="/prevodilac-madjarski-srpski" element={<HungarianSerbianTranslator />} />
@@ -111,6 +129,7 @@ const App = () => (
           <Route path="/prevodilac-finski-srpski" element={<FinnishSerbianTranslator />} />
           <Route path="/prevodilac-srpski-finski" element={<SerbianFinnishTranslator />} />
           <Route path="/prevodilac-kineski-srpski" element={<ChineseSerbianTranslator />} />
+          <Route path="/prevodilac-srpski-kineski" element={<SerbianChineseTranslator />} />
           <Route path="/tekst-u-govor" element={<TextToSpeech />} />
           <Route path="/o-nama" element={<About />} />
           <Route path="/premium" element={<Premium />} />
@@ -130,6 +149,19 @@ const App = () => (
           <Route path="/blog/kako-nauciti-japanski-samostalno-vodic-za-pocetnike" element={<BlogJapanskiSamostalno />} />
           <Route path="/blog/10-saveta-kako-nauciti-svedski-brzo-i-efikasno" element={<BlogSvedskiBrzo />} />
           <Route path="/blog/kako-nauciti-madjarski-jezik-samostalno" element={<BlogMadjarskiSamostalno />} />
+          <Route path="/blog/prevodenje-u-poslovnom-svetu" element={<BlogPrevodjenjeUPoslovnom />} />
+          <Route path="/blog/ai-prevodne-tehnologije-2024" element={<BlogAIPrevodneTechnologie />} />
+          <Route path="/blog/online-prevodni-trendovi-2024" element={<BlogOnlinePrevodneTrend2024 />} />
+          <Route path="/blog/besplatni-prevodi-online" element={<BlogBesplatniPrevodiOnline />} />
+          <Route path="/blog/tekst-u-govor-srpski" element={<BlogTekstUGovorSrpski />} />
+          <Route path="/blog/lokalizacija-veb-stranica" element={<BlogLokalizacijaVebStranica />} />
+          <Route path="/blog/masinski-vs-ljudski-prevod" element={<BlogMasinskiVsLjudskiPrevod />} />
+          <Route path="/blog/profesionalni-prevodilac" element={<BlogProfesionalniPrevodilac />} />
+          <Route path="/blog/online-prevodilac-alati" element={<BlogOnlinePrevodiociAlati />} />
+          <Route path="/blog/srpski-jezik-ucenje" element={<BlogSrpskiJezikUcenje />} />
+          <Route path="/blog/prevodilacki-posao" element={<BlogPrevodilackiPosao />} />
+          <Route path="/blog/prevod-dokumenata" element={<BlogPrevodDokumenata />} />
+          <Route path="/blog/visejeznicu-komunikacija" element={<BlogVisejeznaComunikacija />} />
           <Route path="/prevodilac-japanski-srpski" element={<JapaneseSerbianTranslator />} />
           <Route path="/prevodilac-srpski-japanski" element={<SerbianJapaneseTranslator />} />
           <Route path="/prevodilac-korejski-srpski" element={<KoreanSerbianTranslator />} />

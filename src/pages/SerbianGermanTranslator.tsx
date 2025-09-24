@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ArrowLeftRight, Globe, Headphones } from "lucide-react";
+import { ArrowLeftRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
-import { Link } from "react-router-dom";
+import { SiteHeader } from "@/components/ui/site-header";
+import { useTranslation } from "@/hooks/use-translation";
+import Footer from "@/components/Footer";
 
 const SerbianGermanTranslator = () => {
   const [sourceText, setSourceText] = useState("");
@@ -15,32 +16,30 @@ const SerbianGermanTranslator = () => {
   const usedTokens = 2;
   const totalTokens = 5;
 
+  const { translateText } = useTranslation();
+
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
     setIsTranslating(true);
-    setTimeout(() => {
-      setTranslatedText("Dies ist eine Beispielübersetzung vom Serbischen ins Deutsche, die durch eine echte Übersetzung ersetzt wird.");
+
+    try {
+      const result = await translateText(sourceText, "sr", "de");
+      setTranslatedText(result || "Prevod trenutno nije dostupan, pokušajte ponovo.");
+    } catch (error) {
+      console.error("Translation error:", error);
+      setTranslatedText("Prevod trenutno nije dostupan, pokušajte ponovo.");
+    } finally {
       setIsTranslating(false);
-    }, 1000);
+    }
+  };
+
+  const handleSwapLanguages = () => {
+    window.location.href = "/prevodilac-nemacki-srpski";
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-card-border bg-card">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-3">
-              <Globe className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">PrevodilacSrpski</h1>
-            </Link>
-          </div>
-          <div className="flex items-center gap-4">
-            {isRegistered && <TokenMeter used={usedTokens} total={totalTokens} className="hidden md:flex" />}
-            <Button variant="outline" size="sm" className="font-medium">Prijavi se</Button>
-            <Button size="sm" className="bg-primary hover:bg-primary-hover font-medium">Registruj se</Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
 
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="text-center mb-8">
@@ -58,7 +57,12 @@ const SerbianGermanTranslator = () => {
               <span className="text-base">🇷🇸</span>
               <span className="font-medium text-card-foreground">Srpski</span>
             </div>
-            <Button variant="ghost" size="sm" className="p-2 hover:bg-secondary">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleSwapLanguages}
+              className="p-2 hover:bg-secondary"
+            >
               <ArrowLeftRight className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-2 h-12 px-4 rounded-lg border border-card-border bg-card">
@@ -90,56 +94,58 @@ const SerbianGermanTranslator = () => {
               </div>
               {translatedText && (
                 <div className="flex justify-between items-center">
-                  <TTSButton text={translatedText} isRegistered={isRegistered} isPremium={isPremium} />
+                  <TTSButton text={translatedText} lang="de" isRegistered={isRegistered} isPremium={isPremium} />
                 </div>
               )}
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Footer */}
-      <footer className="border-t border-card-border bg-card mt-16">
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+        <div className="max-w-4xl mx-auto mb-8">
+          <h2 className="text-2xl font-bold text-foreground mb-4">
+            Srpski prema nemačkom
+          </h2>
+          <p className="text-muted-foreground mb-6">
+            Efikasno prevođenje srpskog na nemački jezik uz poštovanje složene gramatike i regionalnih varijanti nemačkog.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-4">Prevodilac</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/online-prevodilac" className="hover:text-foreground">Online prevodilac</Link></li>
-                <li><Link to="/besplatan-prevod-teksta" className="hover:text-foreground">Besplatan prevod</Link></li>
-                <li><Link to="/tekst-u-govor" className="hover:text-foreground">Tekst u govor</Link></li>
-              </ul>
+              <h3 className="text-lg font-semibold mb-2">Profesionalan prevod srpsko-nemački</h3>
+              <p className="text-muted-foreground">
+                Naš napredni algoritam obezbeđuje precizne prevode sa srpskog na nemački jezik,
+                čuvajući kontekst i značenje originalnog teksta. Sistem prepoznaje složenu
+                nemačku gramatiku i optimizovan je za prirodnu komunikaciju.
+              </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Jezici</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/prevodilac-engleski-srpski" className="hover:text-foreground">Engleski ↔ Srpski</Link></li>
-                <li><Link to="/prevodilac-nemacki-srpski" className="hover:text-foreground">Nemački ↔ Srpski</Link></li>
-                <li><Link to="/prevodilac-francuski-srpski" className="hover:text-foreground">Francuski ↔ Srpski</Link></li>
-              </ul>
+              <h3 className="text-lg font-semibold mb-2">Složena nemička gramatika</h3>
+              <p className="text-muted-foreground">
+                Prepoznaje specifičnosti nemačke gramatike uključujući padeže, složene glagolske forme
+                i poziciju glagola u rečenici. Naš sistem je obučen na velikim korpusima nemačkog
+                teksta što omogućava prirodno strukturiranje rečenica.
+              </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Blog</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/blog/10-saveta-kako-brzo-nauciti-engleski" className="hover:text-foreground">10 saveta za engleski</Link></li>
-                <li><Link to="/blog/kako-nauciti-nemacki-samostalno" className="hover:text-foreground">Kako naučiti nemački</Link></li>
-                <li><Link to="/blog/najcesce-greske-u-engleskom-prevodu" className="hover:text-foreground">Greške u prevodu</Link></li>
-              </ul>
+              <h3 className="text-lg font-semibold mb-2">Prirodan audio izgovor</h3>
+              <p className="text-muted-foreground">
+                Slušajte prevod izgovoren prirodnim nemačkim glasom visokeg kvaliteta. Korisno je za učenje
+                nemačkog jezika, proveru izgovora ili pomoć osobama sa poteškoćama u čitanju. Audio se generiše
+                u realnom vremenu sa naprednom TTS tehnologijom.
+              </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Podrška</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="/o-nama" className="hover:text-foreground">O nama</Link></li>
-                <li><Link to="/kontakt" className="hover:text-foreground">Kontakt</Link></li>
-                <li><Link to="/faq" className="hover:text-foreground">FAQ</Link></li>
-              </ul>
+              <h3 className="text-lg font-semibold mb-2">Optimizovano za sve potrebe</h3>
+              <p className="text-muted-foreground">
+                Savršeno funkcioniše na svim uređajima - telefonu, tabletu ili računaru. Interfejs je
+                prilagođen brzom radu sa intuitivnim kontrolama. Idealno za studente, poslovne korisnike,
+                turiste ili sve koji trebaju pouzdan prevod.
+              </p>
             </div>
-          </div>
-          <div className="pt-8 border-t border-card-border text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 PrevodilacSrpski. Sva prava zadržana.</p>
           </div>
         </div>
-      </footer>
+      </div>
+
+      <Footer />
     </div>
   );
 };
