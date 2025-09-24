@@ -6,6 +6,7 @@ import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
 import { sendTranslationToWebhook, TranslationData } from "@/lib/webhook";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
@@ -19,11 +20,7 @@ const EnglishSerbianTranslator = () => {
   const sourceLang = "en";
   const targetLang = "sr";
   
-  // Mock user state
-  const isRegistered = false;
-  const isPremium = false;
-  const usedTokens = 2;
-  const totalTokens = 5;
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
@@ -87,7 +84,7 @@ const EnglishSerbianTranslator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
+      <SiteHeader />
 
       {/* SEO Content */}
       <div className="max-w-6xl mx-auto px-4 py-6">

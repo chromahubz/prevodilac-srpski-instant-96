@@ -37,7 +37,7 @@ const SerbianGermanTranslator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
+      <SiteHeader />
 
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="text-center mb-8">

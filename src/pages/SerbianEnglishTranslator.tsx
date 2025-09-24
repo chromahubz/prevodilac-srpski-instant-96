@@ -3,6 +3,7 @@ import { ArrowLeftRight, Globe, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
+import { useAuth } from "@/contexts/AuthContext";
 import { Link } from "react-router-dom";
 
 const SerbianEnglishTranslator = () => {
@@ -10,10 +11,7 @@ const SerbianEnglishTranslator = () => {
   const [translatedText, setTranslatedText] = useState("");
   const [isTranslating, setIsTranslating] = useState(false);
   
-  const isRegistered = false;
-  const isPremium = false;
-  const usedTokens = 2;
-  const totalTokens = 5;
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;

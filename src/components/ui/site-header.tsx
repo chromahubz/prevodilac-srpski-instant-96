@@ -12,19 +12,15 @@ interface SiteHeaderProps {
   totalTokens?: number;
 }
 
-export function SiteHeader({
-  isRegistered: propIsRegistered,
-  usedTokens: propUsedTokens,
-  totalTokens: propTotalTokens
-}: SiteHeaderProps) {
+export function SiteHeader(props?: SiteHeaderProps) {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
-  const { isRegistered, usedTokens, totalTokens, signOut } = useAuth();
+  const { isRegistered: authIsRegistered, usedTokens: authUsedTokens, totalTokens: authTotalTokens, signOut } = useAuth();
 
-  // Use auth context values if available, otherwise fall back to props
-  const actualIsRegistered = isRegistered ?? propIsRegistered ?? false;
-  const actualUsedTokens = usedTokens ?? propUsedTokens ?? 0;
-  const actualTotalTokens = totalTokens ?? propTotalTokens ?? 5;
+  // Use props if provided, otherwise use auth context
+  const isRegistered = props?.isRegistered ?? authIsRegistered ?? false;
+  const usedTokens = props?.usedTokens ?? authUsedTokens ?? 0;
+  const totalTokens = props?.totalTokens ?? authTotalTokens ?? 5;
 
   const handleLogin = () => {
     console.log('Login button clicked!');
@@ -47,11 +43,11 @@ export function SiteHeader({
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <HeaderLogo />
         <div className="flex items-center gap-4">
-          {actualIsRegistered && (
-            <TokenMeter used={actualUsedTokens} total={actualTotalTokens} className="hidden md:flex" />
+          {isRegistered && (
+            <TokenMeter used={usedTokens} total={totalTokens} className="hidden md:flex" />
           )}
 
-          {actualIsRegistered ? (
+          {isRegistered ? (
             <Button
               variant="outline"
               size="sm"
