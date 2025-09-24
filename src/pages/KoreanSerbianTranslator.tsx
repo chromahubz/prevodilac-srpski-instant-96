@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ArrowLeftRight } from "lucide-react";
+import { ArrowLeftRight, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
 import { useAuth } from "@/contexts/AuthContext";
+import { Link } from "react-router-dom";
 import Footer from "@/components/Footer";
 
 const KoreanSerbianTranslator = () => {
