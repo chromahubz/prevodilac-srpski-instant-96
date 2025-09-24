@@ -28,7 +28,7 @@ const SerbianPortugueseTranslator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader isRegistered={isRegistered} usedTokens={usedTokens} totalTokens={totalTokens} />
+      <SiteHeader />
 
       {/* SEO Content */}
       <div className="max-w-6xl mx-auto px-4 py-6">

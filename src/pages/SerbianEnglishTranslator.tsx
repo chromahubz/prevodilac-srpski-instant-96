@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { ArrowLeftRight, Globe, Headphones } from "lucide-react";
+import { ArrowLeftRight, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
+import { SiteHeader } from "@/components/ui/site-header";
 import { useAuth } from "@/contexts/AuthContext";
-import { Link } from "react-router-dom";
 
 const SerbianEnglishTranslator = () => {
   const [sourceText, setSourceText] = useState("");
@@ -29,24 +28,7 @@ const SerbianEnglishTranslator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-card-border bg-card">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link to="/" className="flex items-center gap-3">
-              <Globe className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">PrevodilacSrpski</h1>
-            </Link>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            {isRegistered && (
-              <TokenMeter used={usedTokens} total={totalTokens} className="hidden md:flex" />
-            )}
-            <Button variant="outline" size="sm" className="font-medium">Prijavi se</Button>
-            <Button size="sm" className="bg-primary hover:bg-primary-hover font-medium">Registruj se</Button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="text-center mb-8">

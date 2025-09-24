@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { ArrowLeftRight, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LanguageSelector } from "@/components/ui/language-selector";
-import { TokenMeter } from "@/components/ui/token-meter";
 import { TTSButton } from "@/components/ui/tts-button";
-import { HeaderLogo } from "@/components/ui/header-logo";
+import { SiteHeader } from "@/components/ui/site-header";
 import { Link } from "react-router-dom";
 
 const KoreanSerbianTranslator = () => {
@@ -40,14 +38,10 @@ const KoreanSerbianTranslator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-card-border bg-card">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <HeaderLogo />
-          
-          <div className="flex items-center gap-4">
-            {isRegistered && (
-              <TokenMeter used={usedTokens} total={totalTokens} className="hidden md:flex" />
+      <SiteHeader />
+
+      {/* SEO Content */}
+      <div className="max-w-6xl mx-auto px-4 py-6">
             )}
             <Button variant="outline" size="sm" className="font-medium">
               Prijavi se
