@@ -1,24 +1,17 @@
 import { useState } from "react";
-import { ArrowLeftRight, Headphones } from "lucide-react";
+import { ArrowLeftRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
-import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import Footer from "@/components/Footer";
 
 const KoreanSerbianTranslator = () => {
   const [sourceText, setSourceText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [isTranslating, setIsTranslating] = useState(false);
-  
-  // Fixed language pair for this page
-  const sourceLang = "ko";
-  const targetLang = "sr";
-  
-  // Mock user state
-  const isRegistered = false;
-  const isPremium = false;
-  const usedTokens = 2;
-  const totalTokens = 5;
+
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
@@ -40,20 +33,6 @@ const KoreanSerbianTranslator = () => {
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      {/* SEO Content */}
-      <div className="max-w-6xl mx-auto px-4 py-6">
-            )}
-            <Button variant="outline" size="sm" className="font-medium">
-              Prijavi se
-            </Button>
-            <Button size="sm" className="bg-primary hover:bg-primary-hover font-medium">
-              Registruj se
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      {/* SEO Content */}
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-4">
