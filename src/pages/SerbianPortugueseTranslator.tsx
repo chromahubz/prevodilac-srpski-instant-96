@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
 import { useTranslation } from "@/hooks/use-translation";
+import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
@@ -12,12 +13,8 @@ const SerbianPortugueseTranslator = () => {
   const [sourceText, setSourceText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const { translateText, isTranslating } = useTranslation();
+  const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
   const navigate = useNavigate();
-
-  const isRegistered = false;
-  const isPremium = false;
-  const usedTokens = 2;
-  const totalTokens = 5;
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
