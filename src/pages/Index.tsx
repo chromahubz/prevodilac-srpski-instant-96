@@ -95,8 +95,8 @@ const Index = () => {
         // Use Gemini for best quality
         await translateWithGemini(sourceText, sourceLang, targetLang, callback);
       } else if (modelQuality === 'obican') {
-        // Use Mixtral for fast translation
-        await translateWithGroq(sourceText, sourceLang, targetLang, callback, "mixtral-8x7b-32768");
+        // Use GPT-OSS for fast translation
+        await translateWithGroq(sourceText, sourceLang, targetLang, callback, "openai/gpt-oss-120b");
       } else {
         // Default: Use Llama for balanced quality/speed
         await translateWithGroq(sourceText, sourceLang, targetLang, callback, "llama-3.3-70b-versatile");
