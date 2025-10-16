@@ -60,11 +60,13 @@ export const translateWithGroq = async (
     const targetLanguage = languageNames[targetLang] || targetLang;
 
     // Create the professional translation prompt
-    const prompt = `Act as a professional translator and perfectly translate and localize the text properly from ${sourceLanguage} to ${targetLanguage}.
+    const prompt = `You are a professional translator. Translate the following text from ${sourceLanguage} to ${targetLanguage}.
 
-IMPORTANT RULES:
-- Provide ONLY the translated text
-- Do NOT include explanations, notes, or additional commentary
+CRITICAL RULES:
+- Output ONLY the translated text, nothing else
+- Do NOT use <think> tags or show your reasoning
+- Do NOT add explanations, notes, or commentary
+- Do NOT add quotes around the translation
 - Maintain the original tone, style, and formatting
 - Use natural, idiomatic expressions in the target language
 - Preserve any special characters, numbers, or punctuation
@@ -72,7 +74,7 @@ IMPORTANT RULES:
 Text to translate:
 ${sourceText}
 
-Translation:`;
+Translated text:`;
 
     // Make the API request with streaming
     const response = await fetch(BASE_URL, {
@@ -89,10 +91,11 @@ Translation:`;
           }
         ],
         model: "qwen/qwen3-32b",
-        temperature: 0.6,
+        temperature: 0.3,
         max_completion_tokens: 4096,
         top_p: 0.95,
-        stream: true
+        stream: true,
+        reasoning_effort: "none"
       })
     });
 
@@ -170,11 +173,13 @@ export const translateWithGroqNoStream = async (
     const sourceLanguage = languageNames[sourceLang] || sourceLang;
     const targetLanguage = languageNames[targetLang] || targetLang;
 
-    const prompt = `Act as a professional translator and perfectly translate and localize the text properly from ${sourceLanguage} to ${targetLanguage}.
+    const prompt = `You are a professional translator. Translate the following text from ${sourceLanguage} to ${targetLanguage}.
 
-IMPORTANT RULES:
-- Provide ONLY the translated text
-- Do NOT include explanations, notes, or additional commentary
+CRITICAL RULES:
+- Output ONLY the translated text, nothing else
+- Do NOT use <think> tags or show your reasoning
+- Do NOT add explanations, notes, or commentary
+- Do NOT add quotes around the translation
 - Maintain the original tone, style, and formatting
 - Use natural, idiomatic expressions in the target language
 - Preserve any special characters, numbers, or punctuation
@@ -182,7 +187,7 @@ IMPORTANT RULES:
 Text to translate:
 ${sourceText}
 
-Translation:`;
+Translated text:`;
 
     const response = await fetch(BASE_URL, {
       method: "POST",
@@ -198,10 +203,11 @@ Translation:`;
           }
         ],
         model: "qwen/qwen3-32b",
-        temperature: 0.6,
+        temperature: 0.3,
         max_completion_tokens: 4096,
         top_p: 0.95,
-        stream: false
+        stream: false,
+        reasoning_effort: "none"
       })
     });
 
