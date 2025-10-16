@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeaderLogo } from "@/components/ui/header-logo";
 import { Link } from "react-router-dom";
@@ -131,7 +131,7 @@ const Contact = () => {
                   <Mail className="h-6 w-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Email podrška</h3>
-                    <p className="text-muted-foreground">kontakt@prevodilacsrpski.com</p>
+                    <p className="text-muted-foreground">contact@unitar.app</p>
                     <p className="text-sm text-muted-foreground mt-1">Odgovaramo u roku od 24 sata</p>
                   </div>
                 </div>
