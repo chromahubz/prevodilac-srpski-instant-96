@@ -8,7 +8,8 @@ const genAI = new GoogleGenerativeAI(API_KEY);
 // Language code to full language name mapping
 const languageNames: { [key: string]: string } = {
   en: "English",
-  sr: "Serbian",
+  sr: "Serbian (Latin script)",
+  "sr-cyrl": "Serbian (Cyrillic script)",
   de: "German",
   fr: "French",
   es: "Spanish",

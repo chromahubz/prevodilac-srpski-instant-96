@@ -16,7 +16,8 @@ export interface Language {
 
 const languages: Language[] = [
   { code: "en", name: "Engleski", flag: "🇺🇸" },
-  { code: "sr", name: "Srpski", flag: "🇷🇸" },
+  { code: "sr", name: "Srpski (Latinica)", flag: "🇷🇸" },
+  { code: "sr-cyrl", name: "Srpski (Ćirilica)", flag: "🇷🇸" },
   { code: "de", name: "Nemački", flag: "🇩🇪" },
   { code: "fr", name: "Francuski", flag: "🇫🇷" },
   { code: "it", name: "Italijanski", flag: "🇮🇹" },
