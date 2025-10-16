@@ -61,12 +61,26 @@ export const translateWithGroq = async (
     const sourceLanguage = languageNames[sourceLang] || sourceLang;
     const targetLanguage = languageNames[targetLang] || targetLang;
 
-    // Create the professional translation prompt
-    const prompt = `You are a professional translator. Translate the following text from ${sourceLanguage} to ${targetLanguage}.
+    // Create special prompt for Qwen models to prevent <think> tags
+    const isQwen = modelName.includes('qwen');
+    const prompt = isQwen
+      ? `You are a professional translator. Translate the text from ${sourceLanguage} to ${targetLanguage}.
+
+CRITICAL - READ CAREFULLY:
+- NEVER use <think> or <thinking> tags
+- NEVER show your reasoning process
+- Output ONLY the final translated text
+- Do NOT add ANY explanations or notes
+- Start your response directly with the translation
+
+Text to translate:
+${sourceText}
+
+Translation (direct output only):`
+      : `You are a professional translator. Translate the following text from ${sourceLanguage} to ${targetLanguage}.
 
 CRITICAL RULES:
 - Output ONLY the translated text, nothing else
-- Do NOT use <think> tags or show your reasoning
 - Do NOT add explanations, notes, or commentary
 - Do NOT add quotes around the translation
 - Maintain the original tone, style, and formatting
