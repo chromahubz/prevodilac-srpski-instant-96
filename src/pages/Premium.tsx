@@ -39,7 +39,7 @@ const Premium = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Check className="h-5 w-5 text-success" />
-                <span>5 besplatnih slušanja dnevno</span>
+                <span>5 dnevno</span>
               </div>
             </div>
             <div className="text-center">

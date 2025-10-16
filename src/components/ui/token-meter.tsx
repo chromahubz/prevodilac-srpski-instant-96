@@ -18,7 +18,7 @@ export function TokenMeter({ used, total, className = "" }: TokenMeterProps) {
         </div>
       </div>
       <div className="text-sm text-token-text font-medium whitespace-nowrap">
-        {used}/{total} besplatnih slušanja
+        {used}/{total}
       </div>
     </div>
   );

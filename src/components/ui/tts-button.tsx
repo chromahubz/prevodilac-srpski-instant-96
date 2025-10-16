@@ -44,7 +44,7 @@ export function TTSButton({
   };
 
   const handleDownload = async () => {
-    if (!isPremium || !text.trim()) return;
+    if (!text.trim()) return;
 
     await downloadAudio(text, `prevod-${Date.now()}.mp3`);
 
@@ -89,11 +89,11 @@ export function TTSButton({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant={isPremium ? "secondary" : "outline"}
+            variant="secondary"
             size="sm"
             onClick={handleDownload}
             disabled={!text || isLoading}
-            className={`h-10 px-4 ${!isPremium ? 'opacity-60' : ''}`}
+            className="h-10 px-4"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -101,11 +101,10 @@ export function TTSButton({
               <Download className="h-4 w-4 mr-2" />
             )}
             MP3
-            {!isPremium && <Lock className="h-3 w-3 ml-1 text-tts-disabled" />}
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          {!isPremium ? "Premium funkcija - skinite MP3" : "Skinite kao MP3"}
+          Skinite kao MP3
         </TooltipContent>
       </Tooltip>
     </div>
