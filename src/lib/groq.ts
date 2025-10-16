@@ -112,6 +112,7 @@ Translated text:`;
 
     const decoder = new TextDecoder();
     let fullText = "";
+    let buffer = ""; // Buffer for incomplete lines
 
     while (true) {
       const { done, value } = await reader.read();
@@ -120,11 +121,14 @@ Translated text:`;
         break;
       }
 
-      // Decode the chunk
-      const chunk = decoder.decode(value, { stream: true });
+      // Decode the chunk and add to buffer
+      buffer += decoder.decode(value, { stream: true });
 
       // Split by newlines to handle multiple SSE messages
-      const lines = chunk.split('\n');
+      const lines = buffer.split('\n');
+
+      // Keep the last incomplete line in buffer
+      buffer = lines.pop() || "";
 
       for (const line of lines) {
         if (line.startsWith('data: ')) {
@@ -143,8 +147,8 @@ Translated text:`;
               callback.onChunk(fullText);
             }
           } catch (e) {
-            // Skip invalid JSON
-            console.warn('Failed to parse chunk:', e);
+            // Skip invalid JSON - likely incomplete
+            console.warn('Failed to parse chunk:', data.substring(0, 50));
           }
         }
       }
