@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { HeaderLogo } from "@/components/ui/header-logo";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,11 +12,57 @@ const Contact = () => {
     subject: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement form submission
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+
+    try {
+      // Web3Forms API - FREE (250 submissions/month)
+      // Get your access key from: https://web3forms.com
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with your key from web3forms.com
+          from_name: formData.name,
+          email: formData.email,
+          subject: `[Prevodilac Srpski] ${formData.subject}`,
+          message: formData.message,
+          to_email: "contact@unitar.app", // Your email
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: "Poruka poslata!",
+          description: "Odgovorićemo vam u najkraćem roku.",
+        });
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+      } else {
+        throw new Error("Failed to send");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Greška pri slanju",
+        description: "Molimo pokušajte ponovo ili nam pišite direktno na contact@unitar.app",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -114,9 +161,9 @@ const Contact = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full bg-primary hover:bg-primary-hover py-3">
+              <Button type="submit" className="w-full bg-primary hover:bg-primary-hover py-3" disabled={isSubmitting}>
                 <Send className="h-4 w-4 mr-2" />
-                Pošalji poruku
+                {isSubmitting ? "Šalje se..." : "Pošalji poruku"}
               </Button>
             </form>
           </div>
