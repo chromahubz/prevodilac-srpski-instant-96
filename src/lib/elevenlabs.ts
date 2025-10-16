@@ -6,8 +6,8 @@ const BASE_URL = 'https://api.elevenlabs.io/v1';
 // Female voice ID (ZENSKI)
 const FEMALE_VOICE_ID = 'cgSgspJ2msm6clMCkdW9';
 
-// Default model
-const DEFAULT_MODEL = 'eleven_turbo_v2_5';
+// Default model - using Eleven V3 (latest and most advanced)
+const DEFAULT_MODEL = 'eleven_v3';
 
 // Voice settings
 const DEFAULT_VOICE_SETTINGS = {

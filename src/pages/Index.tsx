@@ -123,7 +123,7 @@ const Index = () => {
       const audioUrl = await generateSpeech({
         text: text,
         // voiceId: 'cgSgspJ2msm6clMCkdW9' - default female voice
-        // modelId: 'eleven_turbo_v2_5' - default fast model
+        // modelId: 'eleven_v3' - default model (latest Eleven V3)
         stability: 0.5,
         similarityBoost: 0.75
       });
