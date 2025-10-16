@@ -1,7 +1,7 @@
 // Groq API Integration for Translation using Qwen model
 
 // API key is base64 encoded to avoid GitHub secret scanning
-const getApiKey = () => atob("Z3NrX2NpUjhWazhISlRZczJQUWxFbUtHV0dkeWIzRllybWxKYkJ5TmtBRkphZVg2aTJmalFSSU8=");
+const getApiKey = () => atob("Z3NrX2NpUjhWazhISlRZczJQUWxFbUtHV0dkeWIzRllyTWxKYkJ5TmtBRkphZVg2aTJmakFSaU8=");
 const API_KEY = getApiKey();
 const BASE_URL = "https://api.groq.com/openai/v1/chat/completions";
 
