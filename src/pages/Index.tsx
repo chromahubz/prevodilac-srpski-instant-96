@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowLeftRight, Users, Headphones, Copy, Check } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowLeftRight, Users, Headphones, Copy, Check, Code2, Palette, Globe, Smartphone, Laptop, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/ui/language-selector";
 import { TTSButton } from "@/components/ui/tts-button";
@@ -19,8 +19,44 @@ const Index = () => {
   const [copied, setCopied] = useState(false);
   const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [currentBannerScreen, setCurrentBannerScreen] = useState(0);
 
   const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
+
+  const bannerScreens = [
+    {
+      line1: "SAJT ZA TVOJ BIZNIS",
+      line2: "PORUCISAJT.COM",
+      line3: "SAJT VEĆ OD 50€",
+      gradient: "gradient-blue"
+    },
+    {
+      line1: "PROFESIONALNI WEB DIZAJN",
+      line2: "MODERAN I BRZI SAJT",
+      line3: "ZA TVOJU FIRMU",
+      gradient: "gradient-green"
+    },
+    {
+      line1: "BESPLATNO HOSTING",
+      line2: "I DOMEN PRVA GODINA",
+      line3: "PORUCISAJT.COM",
+      gradient: "gradient-orange"
+    },
+    {
+      line1: "OPTIMIZOVANO ZA GOOGLE",
+      line2: "SEO I MARKETING",
+      line3: "UKLJUČENO U CENU",
+      gradient: "gradient-purple"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBannerScreen((prev) => (prev + 1) % bannerScreens.length);
+    }, 5000); // Change screen every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
@@ -259,16 +295,51 @@ const Index = () => {
           )}
 
           {isRegistered && !isPremium && (
-            <div className="premium-gradient text-white rounded-lg p-6 text-center">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <Users className="h-5 w-5" />
-                <span className="font-bold text-lg">Želiš više minuta i različite glasove?</span>
+            <a
+              href="https://porucisajt.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <div className={`tech-banner ${bannerScreens[currentBannerScreen].gradient} rounded-lg p-8 text-center min-h-[180px] relative transition-transform hover:scale-[1.02] active:scale-[0.98]`}>
+                <div className="floating-icons">
+                  <Code2 className="floating-icon" size={48} />
+                  <Palette className="floating-icon" size={40} />
+                  <Globe className="floating-icon" size={44} />
+                  <Smartphone className="floating-icon" size={42} />
+                  <Laptop className="floating-icon" size={46} />
+                  <Zap className="floating-icon" size={38} />
+                </div>
+                {bannerScreens.map((screen, index) => (
+                  <div
+                    key={index}
+                    className={`banner-screen ${currentBannerScreen === index ? 'active' : ''}`}
+                    style={{
+                      opacity: currentBannerScreen === index ? 1 : 0,
+                      visibility: currentBannerScreen === index ? 'visible' : 'hidden',
+                      transition: 'opacity 0.8s ease-in-out',
+                      pointerEvents: currentBannerScreen === index ? 'auto' : 'none'
+                    }}
+                  >
+                    <div className="tech-text animate-line-1">
+                      <p className="text-white text-xl md:text-2xl font-bold tracking-wide">
+                        {screen.line1}
+                      </p>
+                    </div>
+                    <div className="tech-text animate-line-2">
+                      <p className="text-white text-3xl md:text-4xl font-black tracking-wider">
+                        {screen.line2}
+                      </p>
+                    </div>
+                    <div className="tech-text animate-line-3">
+                      <p className="text-white text-lg md:text-xl font-semibold tracking-wide">
+                        {screen.line3}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <p className="mb-4 opacity-90">Pređi na Premium za samo 9.99€ mesečno</p>
-              <Button variant="secondary" className="bg-white text-gray-900 hover:bg-gray-100">
-                Pređi na Premium
-              </Button>
-            </div>
+            </a>
           )}
         </div>
 
