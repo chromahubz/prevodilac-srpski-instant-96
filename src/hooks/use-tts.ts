@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from "react";
-import { sendTTSToWebhook, TTSData } from "@/lib/webhook";
+import { generateSpeech } from "@/lib/elevenlabs";
 import { toast } from "@/hooks/use-toast";
 
 export interface UseTTSOptions {
@@ -19,14 +19,13 @@ export const useTTS = (options: UseTTSOptions = {}) => {
 
     setIsLoading(true);
     try {
-      const ttsData: TTSData = {
+      // Generate speech using ElevenLabs (no browser info sent!)
+      const url = await generateSpeech({
         text: text.trim(),
-        language: options.language || "sr",
-        voice: options.voice || "default",
-        timestamp: new Date().toISOString(),
-      };
-
-      const url = await sendTTSToWebhook(ttsData);
+        // voiceId and modelId use defaults from elevenlabs.ts
+        stability: 0.5,
+        similarityBoost: 0.75
+      });
 
       if (url) {
         setAudioUrl(url);
@@ -53,11 +52,19 @@ export const useTTS = (options: UseTTSOptions = {}) => {
     } finally {
       setIsLoading(false);
     }
-  }, [options.language, options.voice]);
+  }, []);
 
   const playAudio = useCallback(async (text: string) => {
     try {
-      // Stop current audio if playing
+      // If already playing same audio, just replay it
+      if (audioRef.current && lastGeneratedText === text.trim()) {
+        console.log("Replaying cached audio");
+        audioRef.current.currentTime = 0;
+        await audioRef.current.play();
+        return;
+      }
+
+      // Stop current audio if playing different text
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
@@ -65,17 +72,16 @@ export const useTTS = (options: UseTTSOptions = {}) => {
 
       let urlToPlay = audioUrl;
 
-      // Generate new audio if we don't have one or text changed
+      // Generate new audio only if we don't have one or text changed
       if (!urlToPlay || lastGeneratedText !== text.trim()) {
-        console.log("Generating new audio because:", !urlToPlay ? "no cached audio" : "text changed");
-        console.log("Previous text:", lastGeneratedText);
-        console.log("Current text:", text.trim());
+        console.log("Generating new audio for:", text.trim());
         urlToPlay = await generateAudio(text);
         if (!urlToPlay) return;
+      } else {
+        console.log("Reusing cached audio");
       }
 
       // Create and play audio
-      console.log("Attempting to play audio URL:", urlToPlay);
       const audio = new Audio();
       audioRef.current = audio;
 
@@ -156,7 +162,7 @@ export const useTTS = (options: UseTTSOptions = {}) => {
         variant: "destructive",
       });
     }
-  }, [audioUrl, generateAudio]);
+  }, [audioUrl, lastGeneratedText, generateAudio]);
 
   const stopAudio = useCallback(() => {
     if (audioRef.current) {
@@ -170,22 +176,33 @@ export const useTTS = (options: UseTTSOptions = {}) => {
     try {
       let urlToDownload = audioUrl;
 
-      if (!urlToDownload) {
+      // Use cached audio if available and text matches
+      if (!urlToDownload || lastGeneratedText !== text.trim()) {
+        console.log("Generating audio for download");
         urlToDownload = await generateAudio(text);
         if (!urlToDownload) return;
+      } else {
+        console.log("Using cached audio for download");
       }
 
-      // Create download link
+      // Fetch the blob and create download
+      const response = await fetch(urlToDownload);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
       const link = document.createElement('a');
-      link.href = urlToDownload;
-      link.download = filename || `audio-${Date.now()}.mp3`;
+      link.href = blobUrl;
+      link.download = filename || `prevod-${Date.now()}.mp3`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
+      // Clean up blob URL
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+
       toast({
-        title: "Audio download started",
-        description: "Fajl se preuzima...",
+        title: "Preuzimanje započeto",
+        description: "Audio fajl se preuzima...",
       });
     } catch (error) {
       console.error("Error downloading audio:", error);
@@ -195,7 +212,7 @@ export const useTTS = (options: UseTTSOptions = {}) => {
         variant: "destructive",
       });
     }
-  }, [audioUrl, generateAudio]);
+  }, [audioUrl, lastGeneratedText, generateAudio]);
 
   return {
     isLoading,
