@@ -67,7 +67,7 @@ const TextToSpeech = () => {
   };
 
   const handleDownload = async () => {
-    if (!isPremium || !text.trim()) return;
+    if (!text.trim()) return;
     await downloadAudio(text, `tekst-u-govor-${Date.now()}.mp3`);
   };
 
@@ -150,9 +150,8 @@ const TextToSpeech = () => {
                 </Button>
                 <Button
                   onClick={handleDownload}
-                  disabled={!text.trim() || isLoading || !isPremium}
+                  disabled={!text.trim() || isLoading}
                   variant="secondary"
-                  className={!isPremium ? 'opacity-60' : ''}
                 >
                   <Download className="h-4 w-4 mr-2" />
                   Preuzmi MP3
@@ -182,7 +181,7 @@ const TextToSpeech = () => {
             <Download className="h-8 w-8 text-primary mx-auto mb-3" />
             <h3 className="font-semibold text-foreground mb-2">MP3 Export</h3>
             <p className="text-sm text-muted-foreground">
-              Sačuvajte audio kao MP3 fajl (Premium)
+              Sačuvajte audio kao MP3 fajl besplatno
             </p>
           </div>
         </div>
