@@ -5,6 +5,7 @@ import { LanguageSelector } from "@/components/ui/language-selector";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
 import { translateWithGemini } from "@/lib/gemini";
+import { generateSpeech } from "@/lib/elevenlabs";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
@@ -118,73 +119,42 @@ const Index = () => {
     }
 
     try {
-      // Send TTS request to webhook
-      const ttsWebhookUrl = "https://n8n.cosmofic.com/webhook/2cfe4aff-4b89-428f-adf1-9491e10351fa";
-      const ttsParams = new URLSearchParams({
+      // Generate speech using ElevenLabs with female voice (ZENSKI)
+      const audioUrl = await generateSpeech({
         text: text,
-        language: targetLang,
-        timestamp: new Date().toISOString(),
-        source: 'Prevodilac Srpski',
-        userAgent: navigator.userAgent,
-        url: window.location.href
+        // voiceId: 'cgSgspJ2msm6clMCkdW9' - default female voice
+        // modelId: 'eleven_turbo_v2_5' - default fast model
+        stability: 0.5,
+        similarityBoost: 0.75
       });
-      
-      const ttsResponse = await fetch(`${ttsWebhookUrl}?${ttsParams}`, {
-        method: 'GET',
+
+      const audio = new Audio(audioUrl);
+
+      // Set up audio event listeners
+      audio.addEventListener('loadstart', () => setIsAudioPlaying(true));
+      audio.addEventListener('ended', () => {
+        setIsAudioPlaying(false);
+        setCurrentAudio(null);
+        URL.revokeObjectURL(audioUrl); // Clean up blob URL
       });
-      
-      if (ttsResponse.ok) {
-        const responseText = await ttsResponse.text();
-        let audioUrl: string;
-        let needsRevoke = false;
-        
-        // Handle different response formats
-        if (responseText.startsWith('data:audio/')) {
-          // Direct data URL - clean up charset parameter that causes playback issues
-          audioUrl = responseText.replace(/;charset=utf-8/g, '');
-          console.log('Cleaned audio URL:', audioUrl.substring(0, 50) + '...');
-        } else {
-          try {
-            // Try parsing as JSON (might contain data URL)
-            const jsonResponse = JSON.parse(responseText);
-            if (jsonResponse.audioUrl && jsonResponse.audioUrl.startsWith('data:audio/')) {
-              audioUrl = jsonResponse.audioUrl;
-            } else {
-              throw new Error('Invalid JSON response format');
-            }
-          } catch {
-            // Treat as blob if not a data URL or valid JSON
-            const audioBlob = new Blob([responseText], { type: 'audio/mpeg' });
-            audioUrl = URL.createObjectURL(audioBlob);
-            needsRevoke = true;
-          }
-        }
-        
-        const audio = new Audio(audioUrl);
-        
-        // Set up audio event listeners
-        audio.addEventListener('loadstart', () => setIsAudioPlaying(true));
-        audio.addEventListener('ended', () => {
-          setIsAudioPlaying(false);
-          setCurrentAudio(null);
-          if (needsRevoke) URL.revokeObjectURL(audioUrl);
-        });
-        audio.addEventListener('error', () => {
-          setIsAudioPlaying(false);
-          setCurrentAudio(null);
-          if (needsRevoke) URL.revokeObjectURL(audioUrl);
-        });
-        
-        setCurrentAudio(audio);
-        audio.play();
-        
+      audio.addEventListener('error', () => {
+        setIsAudioPlaying(false);
+        setCurrentAudio(null);
+        URL.revokeObjectURL(audioUrl); // Clean up blob URL
         toast({
-          title: "TTS uspešan",
-          description: "Tekst se reprodukuje",
+          title: "TTS greška",
+          description: "Problem sa reprodukcijom audio fajla",
+          variant: "destructive",
         });
-      } else {
-        throw new Error('TTS failed');
-      }
+      });
+
+      setCurrentAudio(audio);
+      audio.play();
+
+      toast({
+        title: "TTS uspešan",
+        description: "Tekst se reprodukuje",
+      });
     } catch (error) {
       console.error("TTS error:", error);
       setIsAudioPlaying(false);
