@@ -53,7 +53,8 @@ export const translateWithGroq = async (
   sourceText: string,
   sourceLang: string,
   targetLang: string,
-  callback: StreamCallback
+  callback: StreamCallback,
+  modelName: string = "llama-3.3-70b-versatile" // Default to Llama
 ): Promise<void> => {
   try {
     // Get full language names
@@ -91,7 +92,7 @@ Translated text:`;
             content: prompt
           }
         ],
-        model: "llama-3.3-70b-versatile",
+        model: modelName,
         temperature: 0.7,
         max_completion_tokens: 4096,
         top_p: 0.95,

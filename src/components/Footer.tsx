@@ -1,6 +1,27 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Settings } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useModel, ModelQuality } from "@/contexts/ModelContext";
 
 const Footer = () => {
+  const { modelQuality, setModelQuality } = useModel();
+  const [open, setOpen] = useState(false);
+
+  const modelOptions: { value: ModelQuality; label: string; description: string }[] = [
+    { value: 'najbolji', label: 'NAJBOLJI', description: 'Najviši kvalitet prevoda, sporiji' },
+    { value: 'standardan', label: 'STANDARDAN', description: 'Balans kvaliteta i brzine' },
+    { value: 'obican', label: 'OBIČAN', description: 'Brži prevod, dobar kvalitet' },
+  ];
+
   return (
     <footer className="border-t border-card-border bg-card mt-16">
       <div className="max-w-6xl mx-auto px-4 py-8">
@@ -11,6 +32,43 @@ const Footer = () => {
               <li><Link to="/online-prevodilac" className="hover:text-foreground">Online prevodilac</Link></li>
               <li><Link to="/besplatan-prevod-teksta" className="hover:text-foreground">Besplatan prevod</Link></li>
               <li><Link to="/tekst-u-govor" className="hover:text-foreground">Tekst u govor</Link></li>
+              <li>
+                <Dialog open={open} onOpenChange={setOpen}>
+                  <DialogTrigger asChild>
+                    <button className="hover:text-foreground flex items-center gap-1">
+                      <Settings className="h-3 w-3" />
+                      Postavke
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Postavke prevodioca</DialogTitle>
+                      <DialogDescription>
+                        Izaberite kvalitet prevoda
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-3">
+                      {modelOptions.map((option) => (
+                        <button
+                          key={option.value}
+                          onClick={() => {
+                            setModelQuality(option.value);
+                            setOpen(false);
+                          }}
+                          className={`w-full text-left p-4 rounded-lg border transition-colors ${
+                            modelQuality === option.value
+                              ? 'border-primary bg-primary/10'
+                              : 'border-card-border hover:border-primary/50'
+                          }`}
+                        >
+                          <div className="font-semibold">{option.label}</div>
+                          <div className="text-sm text-muted-foreground">{option.description}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </li>
             </ul>
           </div>
           

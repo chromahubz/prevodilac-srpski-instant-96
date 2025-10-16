@@ -5,8 +5,10 @@ import { LanguageSelector } from "@/components/ui/language-selector";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
 import { translateWithGroq } from "@/lib/groq";
+import { translateWithGemini } from "@/lib/gemini";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { useModel } from "@/contexts/ModelContext";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
@@ -20,6 +22,7 @@ const Index = () => {
   const [currentBannerScreen, setCurrentBannerScreen] = useState(0);
 
   const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
+  const { modelQuality } = useModel();
 
   const bannerScreens = [
     {
@@ -63,35 +66,41 @@ const Index = () => {
     setTranslatedText(""); // Clear previous translation
 
     try {
-      // Use Groq Qwen AI with streaming
-      await translateWithGroq(
-        sourceText,
-        sourceLang,
-        targetLang,
-        {
-          onChunk: (text: string) => {
-            // Update the translated text as chunks arrive
-            setTranslatedText(text);
-          },
-          onComplete: () => {
-            setIsTranslating(false);
-            toast({
-              title: "Prevod uspešan",
-              description: "Tekst je uspešno preveden",
-            });
-          },
-          onError: (error: Error) => {
-            console.error("Translation error:", error);
-            setTranslatedText("Prevod trenutno nije dostupan, pokušajte ponovo.");
-            setIsTranslating(false);
-            toast({
-              title: "Greška pri prevođenju",
-              description: "Molimo pokušajte ponovo",
-              variant: "destructive",
-            });
-          }
+      // Select translation model based on quality setting
+      const callback = {
+        onChunk: (text: string) => {
+          // Update the translated text as chunks arrive
+          setTranslatedText(text);
+        },
+        onComplete: () => {
+          setIsTranslating(false);
+          toast({
+            title: "Prevod uspešan",
+            description: "Tekst je uspešno preveden",
+          });
+        },
+        onError: (error: Error) => {
+          console.error("Translation error:", error);
+          setTranslatedText("Prevod trenutno nije dostupan, pokušajte ponovo.");
+          setIsTranslating(false);
+          toast({
+            title: "Greška pri prevođenju",
+            description: "Molimo pokušajte ponovo",
+            variant: "destructive",
+          });
         }
-      );
+      };
+
+      if (modelQuality === 'najbolji') {
+        // Use Gemini for best quality
+        await translateWithGemini(sourceText, sourceLang, targetLang, callback);
+      } else if (modelQuality === 'obican') {
+        // Use Qwen for fast translation
+        await translateWithGroq(sourceText, sourceLang, targetLang, callback, "qwen/qwen3-32b");
+      } else {
+        // Default: Use Llama for balanced quality/speed
+        await translateWithGroq(sourceText, sourceLang, targetLang, callback, "llama-3.3-70b-versatile");
+      }
 
     } catch (error) {
       console.error("Translation error:", error);
