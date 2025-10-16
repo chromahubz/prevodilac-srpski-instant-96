@@ -73,6 +73,8 @@ export const translateWithGroq = async (
 
     // Create special prompt for reasoning models (GPT-OSS, Qwen) to prevent <think> tags
     const isReasoningModel = modelName.includes('qwen') || modelName.includes('gpt-oss');
+    const isGptOss = modelName.includes('gpt-oss');
+
     const prompt = isReasoningModel
       ? `You are a professional translator. Translate the text from ${sourceLanguage} to ${targetLanguage}.
 
@@ -102,7 +104,47 @@ ${sourceText}
 
 Translated text:`;
 
-    // Make the API request with streaming
+    // For GPT-OSS, use non-streaming to properly remove <think> tags
+    if (isGptOss) {
+      const response = await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: "user",
+              content: prompt
+            }
+          ],
+          model: modelName,
+          temperature: 0.3,
+          max_completion_tokens: 4096,
+          top_p: 0.95,
+          stream: false,
+          reasoning_effort: "none"
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Groq API error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      let translatedText = data.choices?.[0]?.message?.content || "";
+
+      // Remove <think> tags from the complete response
+      translatedText = removeThinkTags(translatedText);
+
+      // Send the cleaned result
+      callback.onChunk(translatedText);
+      callback.onComplete();
+      return;
+    }
+
+    // For other models, use streaming as before
     const response = await fetch(BASE_URL, {
       method: "POST",
       headers: {
@@ -169,9 +211,7 @@ Translated text:`;
 
             if (content) {
               fullText += content;
-              // Clean <think> tags only for GPT-OSS model
-              const cleanedText = modelName.includes('gpt-oss') ? removeThinkTags(fullText) : fullText;
-              callback.onChunk(cleanedText);
+              callback.onChunk(fullText);
             }
           } catch (e) {
             // Skip invalid JSON - likely incomplete
