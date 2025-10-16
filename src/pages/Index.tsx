@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/ui/language-selector";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
-import { translateWithGemini } from "@/lib/gemini";
+import { translateWithGroq } from "@/lib/groq";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
@@ -63,8 +63,8 @@ const Index = () => {
     setTranslatedText(""); // Clear previous translation
 
     try {
-      // Use Gemini AI with streaming
-      await translateWithGemini(
+      // Use Groq Qwen AI with streaming
+      await translateWithGroq(
         sourceText,
         sourceLang,
         targetLang,
