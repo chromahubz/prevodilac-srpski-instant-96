@@ -27,7 +27,7 @@ const Contact = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Replace with your key from web3forms.com
+          access_key: "11f5307c-119e-46f5-8c71-65a993d6eea1",
           from_name: formData.name,
           email: formData.email,
           subject: `[Prevodilac Srpski] ${formData.subject}`,
