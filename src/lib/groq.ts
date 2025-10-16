@@ -61,9 +61,9 @@ export const translateWithGroq = async (
     const sourceLanguage = languageNames[sourceLang] || sourceLang;
     const targetLanguage = languageNames[targetLang] || targetLang;
 
-    // Create special prompt for Qwen models to prevent <think> tags
-    const isQwen = modelName.includes('qwen');
-    const prompt = isQwen
+    // Create special prompt for reasoning models (GPT-OSS, Qwen) to prevent <think> tags
+    const isReasoningModel = modelName.includes('qwen') || modelName.includes('gpt-oss');
+    const prompt = isReasoningModel
       ? `You are a professional translator. Translate the text from ${sourceLanguage} to ${targetLanguage}.
 
 CRITICAL - READ CAREFULLY:
@@ -107,10 +107,11 @@ Translated text:`;
           }
         ],
         model: modelName,
-        temperature: 0.7,
+        temperature: isReasoningModel ? 0.3 : 0.7,
         max_completion_tokens: 4096,
         top_p: 0.95,
-        stream: true
+        stream: true,
+        ...(isReasoningModel && { reasoning_effort: "none" })
       })
     });
 
