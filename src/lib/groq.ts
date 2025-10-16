@@ -43,6 +43,16 @@ export interface StreamCallback {
 }
 
 /**
+ * Remove <think> tags and their content from text
+ * @param text - Text potentially containing <think> tags
+ * @returns Cleaned text without <think> tags
+ */
+const removeThinkTags = (text: string): string => {
+  // Remove <think>...</think> tags and everything between them
+  return text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+};
+
+/**
  * Translate text using Groq Qwen model with streaming support
  * @param sourceText - Text to translate
  * @param sourceLang - Source language code (e.g., 'en')
@@ -159,7 +169,9 @@ Translated text:`;
 
             if (content) {
               fullText += content;
-              callback.onChunk(fullText);
+              // Clean <think> tags only for GPT-OSS model
+              const cleanedText = modelName.includes('gpt-oss') ? removeThinkTags(fullText) : fullText;
+              callback.onChunk(cleanedText);
             }
           } catch (e) {
             // Skip invalid JSON - likely incomplete
