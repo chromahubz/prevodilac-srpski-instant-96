@@ -139,13 +139,13 @@ const Index = () => {
             <div className="space-y-4">
               <textarea
                 value={sourceText}
-                onChange={(e) => setSourceText(e.target.value.slice(0, 500))}
+                onChange={(e) => setSourceText(e.target.value.slice(0, 2000))}
                 placeholder="Unesi tekst za prevod..."
                 className="translator-input"
-                maxLength={500}
+                maxLength={2000}
               />
               <div className="flex justify-between items-center text-sm text-muted-foreground">
-                <span>{sourceText.length}/500 karaktera</span>
+                <span>{sourceText.length}/2000 karaktera</span>
                 <Button
                   onClick={handleTranslate}
                   disabled={!sourceText.trim() || isTranslating}
