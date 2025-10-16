@@ -92,7 +92,7 @@ Translated text:`;
           }
         ],
         model: "qwen/qwen3-32b",
-        temperature: 0.3,
+        temperature: 0.7,
         max_completion_tokens: 4096,
         top_p: 0.95,
         stream: true,
@@ -208,7 +208,7 @@ Translated text:`;
           }
         ],
         model: "qwen/qwen3-32b",
-        temperature: 0.3,
+        temperature: 0.7,
         max_completion_tokens: 4096,
         top_p: 0.95,
         stream: false,
