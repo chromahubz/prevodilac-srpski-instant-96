@@ -5,7 +5,6 @@ import { LanguageSelector } from "@/components/ui/language-selector";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
 import { translateWithGemini } from "@/lib/gemini";
-import { generateSpeech } from "@/lib/elevenlabs";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
@@ -18,8 +17,6 @@ const Index = () => {
   const [targetLang, setTargetLang] = useState("sr");
   const [isTranslating, setIsTranslating] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [currentBannerScreen, setCurrentBannerScreen] = useState(0);
 
   const { isRegistered, isPremium, usedTokens, totalTokens } = useAuth();
@@ -108,65 +105,6 @@ const Index = () => {
     }
   };
 
-  const handleTTSPlay = async (text: string) => {
-    // If audio is currently playing, stop it
-    if (currentAudio && isAudioPlaying) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      setIsAudioPlaying(false);
-      setCurrentAudio(null);
-      return;
-    }
-
-    try {
-      // Generate speech using ElevenLabs with female voice (ZENSKI)
-      const audioUrl = await generateSpeech({
-        text: text,
-        // voiceId: 'cgSgspJ2msm6clMCkdW9' - default female voice
-        // modelId: 'eleven_v3' - default model (latest Eleven V3)
-        stability: 0.5,
-        similarityBoost: 0.75
-      });
-
-      const audio = new Audio(audioUrl);
-
-      // Set up audio event listeners
-      audio.addEventListener('loadstart', () => setIsAudioPlaying(true));
-      audio.addEventListener('ended', () => {
-        setIsAudioPlaying(false);
-        setCurrentAudio(null);
-        URL.revokeObjectURL(audioUrl); // Clean up blob URL
-      });
-      audio.addEventListener('error', () => {
-        setIsAudioPlaying(false);
-        setCurrentAudio(null);
-        URL.revokeObjectURL(audioUrl); // Clean up blob URL
-        toast({
-          title: "TTS greška",
-          description: "Problem sa reprodukcijom audio fajla",
-          variant: "destructive",
-        });
-      });
-
-      setCurrentAudio(audio);
-      audio.play();
-
-      toast({
-        title: "TTS uspešan",
-        description: "Tekst se reprodukuje",
-      });
-    } catch (error) {
-      console.error("TTS error:", error);
-      setIsAudioPlaying(false);
-      setCurrentAudio(null);
-      toast({
-        title: "TTS greška",
-        description: "Pokušajte ponovo",
-        variant: "destructive",
-      });
-    }
-  };
-
   const handleSwapLanguages = () => {
     setSourceLang(targetLang);
     setTargetLang(sourceLang);
@@ -245,12 +183,10 @@ const Index = () => {
               </div>
                {translatedText && (
                  <div className="flex justify-between items-center">
-                   <TTSButton 
+                   <TTSButton
                      text={translatedText}
-                     isListening={isAudioPlaying}
                      isRegistered={true}
                      isPremium={isPremium}
-                     onPlay={() => handleTTSPlay(translatedText)}
                    />
                  </div>
                )}
