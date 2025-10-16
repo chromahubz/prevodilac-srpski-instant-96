@@ -123,12 +123,13 @@ Translated text:`;
           temperature: 0.3,
           max_completion_tokens: 4096,
           top_p: 0.95,
-          stream: false,
-          reasoning_effort: "none"
+          stream: false
         })
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Groq API error details:', errorText);
         throw new Error(`Groq API error: ${response.status} ${response.statusText}`);
       }
 
