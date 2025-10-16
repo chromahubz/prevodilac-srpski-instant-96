@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/ui/language-selector";
 import { TTSButton } from "@/components/ui/tts-button";
 import { SiteHeader } from "@/components/ui/site-header";
-import { sendTranslationToWebhook, TranslationData } from "@/lib/webhook";
+import { translateWithGemini } from "@/lib/gemini";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import Footer from "@/components/Footer";
@@ -60,40 +60,50 @@ const Index = () => {
 
   const handleTranslate = async () => {
     if (!sourceText.trim()) return;
-    
+
     setIsTranslating(true);
-    
+    setTranslatedText(""); // Clear previous translation
+
     try {
-      // Send translation request to webhook and get actual translation
-      const translationData: TranslationData = {
-        sourceText: sourceText,
-        targetText: "", // Will be filled by webhook
-        sourceLanguage: sourceLang,
-        targetLanguage: targetLang,
-        timestamp: new Date().toISOString()
-      };
-      
-      const webhookResponse = await sendTranslationToWebhook(translationData);
-      const translatedResult = webhookResponse || "Prevod trenutno nije dostupan, pokušajte ponovo.";
-      
-      setTranslatedText(translatedResult);
-      
-      // Show success message
-      toast({
-        title: "Prevod uspešan",
-        description: "Tekst je uspešno preveden",
-      });
-      
+      // Use Gemini AI with streaming
+      await translateWithGemini(
+        sourceText,
+        sourceLang,
+        targetLang,
+        {
+          onChunk: (text: string) => {
+            // Update the translated text as chunks arrive
+            setTranslatedText(text);
+          },
+          onComplete: () => {
+            setIsTranslating(false);
+            toast({
+              title: "Prevod uspešan",
+              description: "Tekst je uspešno preveden",
+            });
+          },
+          onError: (error: Error) => {
+            console.error("Translation error:", error);
+            setTranslatedText("Prevod trenutno nije dostupan, pokušajte ponovo.");
+            setIsTranslating(false);
+            toast({
+              title: "Greška pri prevođenju",
+              description: "Molimo pokušajte ponovo",
+              variant: "destructive",
+            });
+          }
+        }
+      );
+
     } catch (error) {
       console.error("Translation error:", error);
       setTranslatedText("Prevod trenutno nije dostupan, pokušajte ponovo.");
+      setIsTranslating(false);
       toast({
         title: "Greška pri prevođenju",
         description: "Molimo pokušajte ponovo",
         variant: "destructive",
       });
-    } finally {
-      setIsTranslating(false);
     }
   };
 
